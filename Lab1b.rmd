@@ -1,0 +1,94 @@
+---
+title: "Lab 1"
+author: "Zimo Liu"
+date: "`r Sys.Date(1/7/2018)`"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Part 1: Experiment Design
+
+*Citation*: Rocha, E.M., Marche, T.A., and Briere, J.L. (2013). The effect of forced-choice questions on children's suggestibility: A comparison of multiple-choice and yes/no questions. Canadian Journal of Behavioural Science, 45, 1-11.
+
+*Abstract*: Previous research has suggested that, when interviewing young children, responses to yes/no questions are less reliable than responses to multiple-choice questions (Peterson & Grant, 2001). However, according to fuzzy trace theory, some forms of multiple-choice questions should elicit higher error rates than yes/no questions. Fuzzy trace theory is a theory of cognitive development that suggests there are two types of memory traces: Verbatim traces include exact details of an experience, whereas gist traces represent the patterns and meanings extracted from that experience. Based on the assumptions of this theory, we explored the effect of question format (yes/no vs. multiple-choice), temporal delay (short delay vs. long delay) and age (4- to 6-year-olds, 7- to 9-year-olds, and 10- to 12-year-olds) on children's suggestibility for a naturalistic, potentially stressful event; namely, a dental procedure. Following the dental procedure, and again after a 6- to 8-week delay, children (N = 68) were given 24 forced-choice questions regarding the dental event. Consistent with fuzzy trace theory, the findings suggest that (a) multiple-choice questions can be more problematic than yes/no questions, especially after a delay, and (b) younger children are more suggestible than older children, particularly when asked "no" and "absent feature" questions. The findings are discussed with respect to implications for interviewing children.
+
+1)	What would be one possible null hypothesis based on this study?
+    multiple-choice questions can be more problematic than yes/no questions, especially after a delay
+2)	What would be one possible alternative hypothesis based on this study?
+    younger children are more suggestible than older children, particularly when asked ???no??? and ???absent feature??? questions
+3)	Who are they sampling in this study?
+    children (N = 68)
+4)	Who is the intended population in this study?
+    childen age (4- to 6-year-olds, 7- to 9-year-olds, and 10- to 12-year-olds)
+# Part 2: Use the Lab1 data to complete this portion.
+```{r import-data}
+
+``` 
+    > LAB1B <- read.csv(file="Lab1b.csv", header=TRUE, sep=",")
+    > mean(LAB1B)
+
+A typing teacher wants to increase the average typing speeds for her students. She has researched top typing programs that are currently on the market and has decided to test out the two programs that appear the most promising. She gave one class of 50 students the first program, Ta-Da Typing. She gave a second class of 50 students the second program, Sonic Typing. Student's typed words per minute were measured after the experiment. 
+
+1)	What are the mean, standard deviation, and standard error for each group? 
+
+```{r descriptives}
+
+```
+    > mean(LAB1B$typing_speed)
+    [1] 50.98
+
+   > sd(LAB1B$typing_speed)
+    [1] 16.52362
+
+  > install.packages("plotrix")
+  > library("plotrix")
+  > std.error(LAB1B$typing_speed)
+    [1] 1.652362
+2)	Which group appears to have a better model fit using the mean as our model?
+    TaDa Typing
+
+3)	What are the degrees of freedom (df) for each group?
+```{r df}
+
+```
+    50-1=49
+
+4)	What is the 95% confidence interval for each group mean? (using Z distributions, as we have at least 30 people).
+
+```
+    {r conf-interval}
+
+``` 
+> z.test(LAB1B$typing_speed, mu = 50.98, sd = 16.52362, conf.level = .95 )
+
+	One Sample z-test
+
+data:  LAB1B$typing_speed
+z = 0, n = 100.0000, Std. Dev. = 16.5240, Std. Dev. of the sample mean = 1.6524, p-value = 1
+alternative hypothesis: true mean is not equal to 50.98
+95 percent confidence interval:
+ 47.74143 54.21857
+sample estimates:
+mean of LAB1B$typing_speed 
+                     50.98 
+
+
+5) Calculate the effect size between the two programs using the MOTE library.
+
+```{r MOTE}
+
+```
+    d.ind.t(52.62, 49.34, 12.68116, 19.62985, 50, 50, a = 0.05)
+
+6) Calculate the number of participants you would need if you wanted to repeat this study.
+
+```{r pwr}
+
+```
+    pwr.t.test(d = -0.1984887, power=0.80, sig.level=0.05)
+
+
+

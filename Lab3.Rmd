@@ -1,0 +1,170 @@
+---
+title: "Lab 3"
+author: "Zimo Liu"
+date: "`r Sys.Date(02/09/2019)`"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```read.csv("lab3.csv", header=TRUE)
+
+# Dataset:
+350 students were given a short questionnaire about their perception of parking space available on campus. The participants were first asked demographic information: 
+    
+    a) Gender 
+    b)	Class level (freshman, sophomore, junior, senior) 
+
+Next, participants were asked to indicate their opinion on three questions on parking lot space a 1-7 likert-type scale (1 = strongly disagree, 7 = strongly agree).
+    
+    a)	I always drive to campus.
+    b)	I spend several minutes each day looking for parking.
+    c)	I think MSU should build additional parking.
+    
+```{r starting}
+
+```
+
+# Data screening:
+
+## Accuracy:
+    a)	Include output and indicate how the data are not accurate.
+    b)	Include output to show how you fixed the accuracy errors, and describe what you did.
+    
+```{r accuracy}
+
+``` 
+##check categorical data
+table(master$Sex)
+table(master$SES)
+notypos = master
+notypos$Sex = factor(notypos$Sex, 
+                     levels = c(1,2), 
+                     labels = c("Women", "Men"))
+notypos$SES = factor(notypos$SES, 
+                     levels = c(1,2, 3),
+                     labels = c("Low", "Medium", "High"))
+table(notypos$Sex)
+table(notypos$SES)
+summary(notypos)
+table(notypos$Grade)
+table(notypos$Absences)
+notypos$Grade[ notypos$Grade > 34 ] = NA
+table(notypos$Grade)
+notypos$Absences[ notypos$Absences > 34 ] = NA
+table(notypos$Absences)
+names(notypos)
+head(notypos[ , 6:19])
+notypos[ , 6:19] > 7
+notypos[ , 6:19][ notypos[ , 6:19] > 7 ]
+notypos[ , 6:19][ notypos[ , 6:19] > 7 ] = NA
+summary(notypos)
+
+ get the means and SD by COLUMN
+apply(notypos, 2, mean) ##we have to deal with the factor variables
+head(notypos[, -c(1,3)])
+apply(notypos[, -c(1,3)], 2, mean) ##we have deal with the missing data
+apply(notypos[, -c(1,3)], 2, mean, na.rm = TRUE)
+apply(notypos[, -c(1,3)], 2, sd, na.rm = TRUE)
+
+ Missing data:
+    a)	Include output that shows you have missing data.
+    b)	Include output and a description that shows what you did with the missing data.
+        i)	Replace all participant data if they have less than or equal to 20% of missing data by row. 
+        ii)	You can leave out the other participants (i.e. you do not have to create allrows). 
+        
+```{r missing}
+
+```
+summary(notypos)
+View(notypos)
+percentmiss = function(x){ sum(is.na(x))/length(x) *100 }
+apply(notypos, 1, percentmiss) 
+missing = apply(notypos, 1, percentmiss) 
+table(missing)
+replacepeople = subset(notypos, missing <= 6) 
+dontpeople = subset(notypos, missing > 6)
+apply(replacepeople, 2, percentmiss) 
+replacecolumn = replacepeople[ , -c(1,3)]
+dontcolumn = replacepeople[ , c(1,3)]
+install.packages("Lo")
+library(Lo)
+tempnomiss = Lo(replacecolumn)
+nomiss = complete(tempnomiss, 1)
+summary(nomiss)
+allcolumns = cbind(dontcolumn, nomiss)
+summary(allcolumns)
+allrows = rbind(dontpeople, allcolumns) 
+summary(allrows)
+nomissing = allcolumns
+
+## Outliers:
+    a)	Include a summary of your mahal scores that are greater than the cutoff.
+    b)	What are the df for your Mahalanobis cutoff?
+    c)	What is the cut off score for your Mahalanobis measure?
+    d)	How many outliers did you have?
+    e)	Delete all outliers. 
+    
+```{r outliers}
+
+``` 
+head(nomissing[ , -c(1, 2)])
+mahal = mahalanobis(nomissing[ , -c(1,2)], 
+                    colMeans(nomissing[ , -c(1,2)], na.rm = TRUE),
+                    cov(nomissing[ , -c(1,2)], use="pairwise.complete.obs"))
+mahal
+cutoff = qchisq(1 - .001,ncol(nomissing[ , -c(1,2)])) 
+ncol(nomissing[ , -c(1,2)]) ##this is df
+cutoff ##this is cutoff score
+summary(mahal < cutoff)
+noout = subset(nomissing, mahal < cutoff)
+
+# Assumptions:
+
+## Additivity: 
+    a)  Include the symnum bivariate correlation table of your continuous measures.
+    b)  Do you meet the assumption for additivity?
+    
+```{r additivity}
+
+```
+correlations = cor(noout[,-c(1,2)], use="pairwise.complete.obs")
+   correlations
+   symnum(correlations)
+
+
+## Linearity: 
+    a)  Include a picture that shows how you might assess multivariate linearity.
+    b)  Do you think you've met the assumption for linearity?
+    
+```{r linearity}
+
+```
+standardized = rstudent(fake)
+    qqnorm(standardized)
+    abline(0,1)
+
+## Normality: 
+    a)  Include a picture that shows how you might assess multivariate normality.
+    b)  Do you think you've met the assumption for normality? 
+
+```{r normality}
+
+```install.packages("moments")
+  library(moments)
+  skewness(noout[ , -c(1,2)], na.rm=TRUE)
+  kurtosis(noout[ , -c(1,2)], na.rm=TRUE)
+  hist(standardized, breaks=15)
+
+## Homogeneity/Homoscedasticity: 
+    a)  Include a picture that shows how you might assess multivariate homogeneity.
+    b)  Do you think you've met the assumption for homogeneity?
+    c)  Do you think you've met the assumption for homoscedasticity?
+
+```{r homog-s}
+
+```
+fitvalues = scale(fake$fitted.values)
+  plot(fitvalues, standardized) 
+  abline(0,0)
+  abline(v = 0)

@@ -1,0 +1,187 @@
+---
+  title: "Lab 2"
+author: "Zimo Liu"
+date: "`r Sys.Date(12/2/2018)`"
+output: word_document
+---
+  
+  ```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Logical Operators: 
+
+1.	Use logical operations to get R to agree that "two plus two equals five" is FALSE.
+
+```{r q1}
+
+```2+2 == 5
+
+2.	Use logical operations to test whether 8 ^ 13 is less than 15 ^ 9.
+
+```{r q2}
+
+```8^13 < 15^9
+
+# Variables:
+
+3.	Create a variable called potato whose value corresponds to the number of potatoes you've eaten in the last week. Or something equally ridiculous. Print out the value of potato.
+
+```{r q3}
+
+```Pepsi <- 6
+   print(Pepsi)
+
+4.	Calculate the square root of potato using the sqrt() function. Print out the value of potato again to verify that the value of potato hasn't changed.
+
+```{r q4}
+
+```sqrt(Pepsi)
+   print(Pepsi)
+
+5.	Reassign the value of potato to potato * 2. Print out the new value of potato to verify that it has changed.
+
+```{r q5}
+
+```NewPepsi <- Pepsi*2
+   print(NewPepsi)
+
+6.	Try making a character (string) variable and a logical variable . Try creating a variable with a "missing" value NA. You can call these variables whatever you would like. Use class(variablename) to make sure they are the right type of variable. 
+
+```{r q6}
+
+```C <- "Canes"
+   Log = 1; Ic = 2   
+   Value = Log > Ic 
+   Y <- c(1,2,3,NA)
+   class(C)
+   class(Value)
+   class(Y)
+# Vectors:
+
+7.	Create a numeric vector with three elements using c().
+
+```{r q7}
+
+```x7 <- c(1, 2, 3)
+
+8.	Create a character vector with three elements using c().
+
+```{r q8}
+
+```b <- c("hello","there","professor")
+
+9.	Create a numeric vector called age whose elements contain the ages of three people you know, where the names of each element correspond to the names of those people.
+
+```{r q9}
+
+```age <- c( "Yang"=25, "Jonna"=25, "Isakyo"=30 )
+
+   
+10.	Use "indexing by number" to get R to print out the first element of one of the vectors you created in the last questions.
+
+```{r q10}
+
+```age[1]
+
+11.	Use logical indexing to return all the ages of all people in age greater than 20.
+
+```{r q11}
+
+```age > 20
+
+12.	Use indexing by name to return the age of one of the people whose ages you've stored in age
+
+```{r q12}
+
+```Jonna
+
+# Dataframes:
+
+13.	Load the airquality dataset. 
+14. Use the $ method to print out the Wind variable in airquality.
+15.	Print out the third element of the Wind variable.
+
+```{r q13-15}
+
+```datasets::airquality
+   airquality$Wind
+   airquality$Wind[3]
+
+16.	Create a new data frame called aq that includes only the first 10 cases. Hint: typing c(1,2,3,4,5,6,7,8,9,10) is tedious. R allows you to use 1:10 as a shorthand method!
+17.	Use logical indexing to print out all days (ie. cases) in aq where the Ozone level was higher than 20. 
+a.	What did the output do with NA values?
+18.	Use subset() to do the same thing. Notice the difference in the output.
+
+```{r q16-18}
+
+```(aq <- airquality[1:10,]) 
+   aq[ aq$Ozone > 20, ]
+   subset( aq, Ozone > 20 )
+
+19.	Create a TooWindy variable inside aq, which is a logical variable that is TRUE if Wind is greater than 10, and FALSE otherwise.
+
+```{r q19}
+
+```aq$TooWindy <- aq$Wind > 10
+
+20.	Use the length() function to determine the number of observations in the airquality dataframe.
+
+```{r q20}
+
+```length(airquality)
+
+21.	Calculate the mean and standard deviation of one of the variables in airquality.
+
+```{r q21}
+
+```mean(airquality$Temp)
+   sd(airquality$Temp)
+
+22.	Make a table of the Temp values.
+
+```{r q22}
+
+```table(airquality$Temp)
+
+23.	Make a histogram of the Ozone column. Is it a normal distribution? Why or why not?
+
+```{r q23}
+
+```hist(airquality$Ozone)
+   No, mean(airquality$Ozone) is NA, and we can also check the P value
+
+# Functions: 
+
+24.	Make a simple function to calculate x + 6.
+
+```{r q24}
+
+```Temp_K <- x + 6
+   
+
+25.	Use that function add 6 to the Temp column in airquality. 
+
+```{r q25}
+
+```airquality$Temp + 6 
+
+# Packages:
+
+26.	Install the ggplot2 package.
+27.	Install the car package.
+28.	Install the ez package. (no output necessary for these three)
+29.	Load the car library.
+
+```{r q29}
+
+```install.packages("ggplot2")
+   install.packages("car")
+   install.packages("ez")
+   library("car")
+# Files
+30. Import the csv file provided on Moodle 
+ 
+```{r q30}
+
+```read.csv(file = "Texting.csv")

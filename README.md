@@ -15,7 +15,7 @@ Additivity, Include the symnum bivariate correlation table for continuous measur
 Normality, using kurtosis and skewness to test the multivariate normality.
 Homogeneity/Homoscedasticity, build the plot and scale to check the homogeneity.
 
-# Lab4 Maximizing parking capacity & utilization
+# Lab4 Correlations research of memory & mental abilities
 The study is finding the associations between working memory and both reading and math abilities. The possible factors are intelligence, verbal abilities , short term memory and phonological awareness. The sample are these disabilities of 6-11 years old child. This sample people have deficits in complex memory and visuospatial STM and low IQ scores. So we are trying to make contribution of working memory to learning ,and help for educational practice in the future. 
 In #Data Screening#, we check the outliers using Leverage cut off score and Cook’s cut off score.
 The leverage cut off score, we using the “lm” function to build the linear regression model to help us get the leverage cut off score. Then we use Cook’s distance then Mahalanobis distance to get each outlier. (So we are using three method to get outliers, like bad data or error data)

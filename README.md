@@ -20,9 +20,9 @@ The study is finding the associations between working memory and both reading an
 In #Data Screening#, we check the outliers using Leverage cut off score and Cook’s cut off score.
 The leverage cut off score, we using the “lm” function to build the linear regression model to help us get the leverage cut off score. Then we use Cook’s distance then Mahalanobis distance to get each outlier. (So we are using three method to get outliers, like bad data or error data)
 Then we clean these outliers.
-# Hierarchical Regression
+ # Hierarchical Regression
 They we move to Hierarchical Linear Modeling(HLM), one kind of the Multiple linear regression(MLR). We build three model and run the Anova test, compare the F-Statistic and P value so get the best model from them. The result prove that “Math” has a significant positive influence on “Reading”. 
-# Moderation
+ # Moderation
 Examine the interaction between verbal and math scores predicting reading scores. (Build the linear model of Data and Reading)
 Build the linear model for low, average, and high math levels (split on math) for verbal predicting reading.
 Generate the graph of the interaction.

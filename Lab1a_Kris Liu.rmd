@@ -1,6 +1,6 @@
 ---
   title: "Lab 2"
-author: "Zimo Liu"
+author: "Kris Liu"
 date: "`r Sys.Date(12/2/2018)`"
 output: word_document
 ---
